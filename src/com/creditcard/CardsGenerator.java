@@ -14,7 +14,7 @@ import java.util.Random;
 public class CardsGenerator {
     
     final private static Random rGenerator = new Random();
- 
+    /** Array with the supported banks. */
     final private static String[] banks = {HSBCCanadaCard.BANK,
         RoyalBankOfCanadaCard.BANK, AmericanExpressCard.BANK};
 
@@ -31,6 +31,10 @@ public class CardsGenerator {
         return cards;
     }
     
+    /**
+     * Generates a card with random valid data.
+     * @return the new card.
+     */
     static CreditCard generateCard() {
 
         CreditCard card = null;

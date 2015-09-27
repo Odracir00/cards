@@ -7,7 +7,6 @@ import java.time.YearMonth;
  * @author Ricardo Santos 
  */
 public class AmericanExpressCard extends CreditCard {
-
     
     final static String BANK = "American Express";
     final static String CARD_PATTERN = "\\b[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}\\b";
@@ -24,7 +23,5 @@ public class AmericanExpressCard extends CreditCard {
     final void generateMaskedNumber() {
         maskedCardNumber = MASKED_CARD_PATTERN + cardNumber.substring(15);
     }
-    
-    
     
 }

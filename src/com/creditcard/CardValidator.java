@@ -36,6 +36,11 @@ public class CardValidator {
         validateExpiryDate(creditCardData[2]);
     }
 
+    /**
+     * Ensures that the card belongs to a supported bank.
+     * @param bankName card's bank name.
+     * @throws ParseException If the bank is unknown.
+     */
     static void validateBankName(String bankName) throws ParseException {
         if (!(bankName.equals(HSBCCanadaCard.BANK) || bankName.equals(RoyalBankOfCanadaCard.BANK) || 
                 bankName.equals(AmericanExpressCard.BANK))) {

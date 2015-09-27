@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Client class which does the procedure of reading cards from the fie, sorting
  * and displaying then in the correct order/format.
- * If the file doesn't exist a big mock file is generated and used instead.
+ * If the file doesn't exist a mock file is generated and used instead.
  *
  * @author Ricardo Santos
  */
@@ -25,6 +25,10 @@ public class Client {
         if (args.length == 2) {
             try {
                 cardsNumb = Integer.parseInt(args[1]);
+                if (cardsNumb < 0 || cardsNumb > 10_000_000) { // basic validation
+                    return;
+                }
+
                 fileName = args[0];
 
             } catch (NumberFormatException e) {
@@ -34,9 +38,9 @@ public class Client {
             // If a name and an integer has been passed in the command line, 
             // it creates a csv file with that name, containing the number cards specified in 
             // the second argument. This cards are generated with random valid numbers
-            if (fileName != null && cardsNumb > 0) {
+            if (fileName != null) {
                 File f = new File(fileName);
-                if (!(f.exists() && !f.isDirectory())) { /// generatr csv file with cards
+                if (!(f.exists() && !f.isDirectory())) { /// generate csv file with cards
                     List<CreditCard> generatedCards = CardsGenerator.generateCreditCards(cardsNumb);
                     IOData.writeCardsToFile(fileName, generatedCards);
                     processCards(fileName);
@@ -55,6 +59,6 @@ public class Client {
         CardsManager manager = new CardsManager();
         manager.setCards(cards);
         manager.sortCard(new DecrescenteExpiryDateComparator()); // sorts cards
-        manager.output();            // prints out the sorted ist of cards
+        manager.output();                // prints out the sorted ist of cards
     }
 }

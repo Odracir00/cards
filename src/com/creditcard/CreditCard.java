@@ -50,7 +50,7 @@ public abstract class CreditCard {
     /**
      * Overriding equals to be consistent with Comparator.compare Only the card
      * number and the expiry date a taken into account to define equality.
-     * @param o object to compare to
+     * @param o object to compare with.
      * @return
      */
     @Override

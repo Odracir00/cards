@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.creditcard;
 
 import java.text.ParseException;
 import org.junit.Test;
 
-/**
- *
- * @author Ricardo Santos
- */
 public class CardValidatorTest {
 
     private final static String BANK1 = "HSBC Canada";
@@ -162,7 +153,7 @@ public class CardValidatorTest {
 
     @Test(expected = ParseException.class)
     public void testValidateYear_invalid2() throws ParseException {
-        CardValidator.validateYear("2051");
+        CardValidator.validateYear("2050");
     }
 
     @Test(expected = ParseException.class)

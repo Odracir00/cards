@@ -2,10 +2,6 @@ package com.creditcard;
 
 import java.time.YearMonth;
 
-/**
- *
- * @author Ricardo Santos
- */
 public class RoyalBankOfCanadaCard extends CreditCard {
     
 final static String BANK = "Royal Bank of Canada";
