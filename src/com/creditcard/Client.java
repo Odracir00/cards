@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class Client {
 
+    private final static String DEFAULT_FILE = "resources/mid-test.csv";
+
     public static void main(String[] args) throws IOException, ParseException {
 
         String fileName = null;
@@ -42,7 +44,7 @@ public class Client {
             }
 
         } else {
-            processCards("mid-test.csv");
+            processCards(DEFAULT_FILE);
         }
     }
 
