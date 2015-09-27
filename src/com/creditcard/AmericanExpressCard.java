@@ -24,4 +24,7 @@ public class AmericanExpressCard extends CreditCard {
     final void generateMaskedNumber() {
         maskedCardNumber = MASKED_CARD_PATTERN + cardNumber.substring(15);
     }
+    
+    
+    
 }
