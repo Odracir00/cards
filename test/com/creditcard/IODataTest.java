@@ -23,8 +23,6 @@ import static org.junit.Assert.*;
  */
 public class IODataTest {
 
-    private final static String PATH = "resources/";
-
     private final static String CARD_NUMBER1 = "3786-7334-8965-0001";
     private final static YearMonth YEAR_MONTH = YearMonth.of(2016, 1);
     private final static String YEAR_MONTH_STRING = "Dec-2015";
@@ -56,7 +54,7 @@ public class IODataTest {
 
     @Test(expected = ParseException.class)
     public void testReadCardsFromFile_WrongFormatFile() throws Exception {
-        String file = PATH + "mid-test_wrongformat.csv";
+        String file = "mid-test_wrongformat.csv";
         IOData.readCardsFromFile(file);
     }
 

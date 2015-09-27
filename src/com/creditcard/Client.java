@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Client {
 
-    private final static String DEFAULT_FILE = "resources/mid-test.csv";
+    private final static String DEFAULT_FILE = "mid-test.csv";
 
     public static void main(String[] args) throws IOException, ParseException {
 
