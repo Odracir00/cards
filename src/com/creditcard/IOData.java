@@ -54,7 +54,6 @@ public class IOData {
 
     /**
      * Creates a credit card base on 3 Strings.
-     *
      * @param bank Name of the bank.
      * @param cardNum Card number.
      * @param expDate Expiry Date.
