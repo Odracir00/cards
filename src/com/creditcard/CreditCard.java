@@ -48,8 +48,8 @@ public abstract class CreditCard {
     }
     
     /**
-     * Overriding equals to be consistent with Comparator.compare Only the card
-     * number and the expiry date a taken into account to define equality.
+     * Overriding equals to be consistent with .compareTo Only the card
+     *  expiry date a taken into account to define equality.
      * @param o object to compare with.
      * @return
      */
@@ -59,8 +59,8 @@ public abstract class CreditCard {
             return false;
         }
         CreditCard c = (CreditCard) o;
-        // Only the expiryDate and card number are used to define equality.
-        return expiryDate.equals(c.expiryDate) && cardNumber.equals(c.cardNumber);
+        // Only the expiryDate is used to define equality.
+        return expiryDate.equals(c.expiryDate);
     }
 
     @Override

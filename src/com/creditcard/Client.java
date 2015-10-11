@@ -52,13 +52,12 @@ public class Client {
         }
     }
 
-    private static void processCards(String fileName) throws FileNotFoundException, ParseException {
+    private static void processCards(String fileName) throws FileNotFoundException, ParseException, IOException {
         // reads cards from the file
         List<CreditCard> cards = IOData.readCardsFromFile(fileName);
 
-        CardsManager manager = new CardsManager();
-        manager.setCards(cards);
-        manager.sortCard(new DecrescenteExpiryDateComparator()); // sorts cards
-        manager.output();                // prints out the sorted ist of cards
+        CardsManager manager = new CardsManager(cards);
+        manager.sortCard();     // sorts cards
+        manager.output();       // prints out the sorted ist of cards
     }
 }

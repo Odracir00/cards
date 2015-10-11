@@ -1,8 +1,6 @@
-
 package com.creditcard;
 
 import java.time.YearMonth;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
@@ -16,9 +14,7 @@ public class CardsManagerTest {
     
     private final static String CARD_NUMBER1 = "4519-4532-4524-0001";
     
-    CardsManager manager = new CardsManager();
-    
-    Comparator<CreditCard> comparator = new DecrescenteExpiryDateComparator();
+    CardsManager manager;
  
     /**
      * Test of sortCard method, of class CardsManager.
@@ -32,8 +28,8 @@ public class CardsManagerTest {
         cards.add(createCard(2017, 11));
         cards.add(createCard(2017, 10));
         
-        manager.setCards(cards);
-        manager.sortCard(comparator);
+        manager = new CardsManager(cards);
+        manager.sortCard();
 
         List<CreditCard> sortedCards = manager.getCards();
         assertEquals(4, sortedCards.size());

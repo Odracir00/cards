@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.creditcard;
 
 import java.io.File;
@@ -17,10 +12,6 @@ import java.util.Locale;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Ricardo Santos
- */
 public class IODataTest {
 
     private final static String CARD_NUMBER1 = "3786-7334-8965-0001";
@@ -31,11 +22,9 @@ public class IODataTest {
     public IODataTest() {
     }
 
-    /**
-     * Test of readCardsFromFile method, of class IOData.
-     */
+    /** Test of readCardsFromFile method, of class IOData.   */
     @Test
-    public void testReadCardsFromFile() throws FileNotFoundException, ParseException {
+    public void testReadCardsFromFile() throws FileNotFoundException, ParseException, IOException {
 
         String file = "mid-test.csv";
         List<CreditCard> cards = IOData.readCardsFromFile(file);
@@ -70,11 +59,7 @@ public class IODataTest {
         assertTrue(c instanceof AmericanExpressCard);
     }
 
-
-    
-    /**
-     * Test of readCardsFromFile method, of class IOData.
-     */
+    /** Test of readCardsFromFile method, of class IOData.  */
     @Test
     public void testWriteCardsToFile() throws IOException {
         

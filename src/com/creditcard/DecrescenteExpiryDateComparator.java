@@ -3,6 +3,7 @@ package com.creditcard;
 import java.util.Comparator;
 
 /**
+ * @deprecated 
  * Comparator used to order card based on a descendent expiry date. If the date
  * is the same, the cards are ordered based on the card number.
  */

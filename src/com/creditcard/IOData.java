@@ -1,18 +1,17 @@
 package com.creditcard;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
 
 public class IOData {
 
@@ -25,47 +24,53 @@ public class IOData {
      * @param fileName file to be read.
      * @return A list containing all credit cards read.
      * @throws FileNotFoundException if it was not possible to open the file
-     * @throws ParseException If the file in not well formatted.
+     * @throws ParseException        If the file in not well formatted.
      */
-    static List<CreditCard> readCardsFromFile(String fileName) throws FileNotFoundException, ParseException {
+    static List<CreditCard> readCardsFromFile(String fileName) throws IOException, FileNotFoundException, ParseException {
 
         List<CreditCard> cards = new LinkedList<>();
-
-        File file = new File(fileName);
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            // This is here only because in the original file there is a double space in the second line.
-            line = line.replaceAll("  ", " ").trim();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             
-            String[] elements = line.split(",");
-            if (elements.length != 3) {
-                throw new ParseException("Incorrect file data.", 0);
-            }
+            String line;
+            while ((line = processReadCards(br, (x) -> x.readLine())) != null && line.length() != 0) {
+                line = line.replaceAll("  ", " ").trim();
 
-            CardValidator.validateCrediteCard(elements);
-            CreditCard card = createCard(elements[0], elements[1], elements[2]);
-            cards.add(card);
+                String[] elements = line.split(",");
+                if (elements.length != 3) {
+                    throw new ParseException("Incorrect file data.", 0);
+                }
+
+                CardValidator.validateCrediteCard(elements);
+                CreditCard card = createCard(elements[0], elements[1], elements[2]);
+                cards.add(card);
+            }
         }
-        sc.close();
 
         return cards;
+    }
+  
+    private static String processReadCards(BufferedReader br, BufferedReaderProcessor p) throws IOException {
+        return p.process(br);
+    }
+
+    private interface BufferedReaderProcessor {
+        public String process(BufferedReader b) throws IOException;
     }
 
     /**
      * Creates a credit card base on 3 Strings.
-     * @param bank Name of the bank.
+     * @param bank    Name of the bank.
      * @param cardNum Card number.
      * @param expDate Expiry Date.
      * @return the new card
      */
-     static CreditCard createCard(String bank, String cardNum, String expDate) {
+    static CreditCard createCard(String bank, String cardNum, String expDate) {
 
         CreditCard card = null;
         YearMonth expiryDate = YearMonth.parse(expDate, DateTimeFormatter.ofPattern("MMM-yyyy", Locale.UK));
 
         switch (bank) {
-            case HSBCCanadaCard.BANK: // mudar isto para consts desntro da class HB..Canada
+            case HSBCCanadaCard.BANK:
                 card = new HSBCCanadaCard(cardNum, expiryDate);
                 break;
             case RoyalBankOfCanadaCard.BANK:
@@ -88,18 +93,23 @@ public class IOData {
      */
     static void writeCardsToFile(String fileName, List<CreditCard> cards) throws IOException {
 
-        File file = new File(fileName);
-        FileOutputStream fos = new FileOutputStream(file);
-
-        String line;
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-        for (CreditCard c : cards) {
-            line = c.toStringWithFullCardNumber();
-            bw.write(line);
-            bw.newLine();
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(fileName))) {
+            for (CreditCard card : cards) {
+                processWriteCards(br, (x) -> {
+                    x.write(card.toStringWithFullCardNumber());
+                    x.newLine();
+                });
+            }
         }
-        bw.close();
+    }
 
+    private static void processWriteCards(BufferedWriter br, BufferedWriterProcessor p) throws IOException {
+        p.process(br);
+    }
+
+    @FunctionalInterface
+    private interface BufferedWriterProcessor {
+        public void process(BufferedWriter b) throws IOException;
     }
 
 }
